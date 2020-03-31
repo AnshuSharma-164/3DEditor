@@ -263,31 +263,35 @@ function init() {
         };
     };
 
-    var raycaster = new THREE.Raycaster();
-    var mouse = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster(); // raycaster vector
+    var mouse = new THREE.Vector2(); // mouse vector
     
-    window.addEventListener('click', onDocumentMouseDown, false);
+    window.addEventListener('click', onDocumentMouseDown, false); // Event listener
 
+    // Mouse click function
     function onDocumentMouseDown( event ) {
 
     event.preventDefault();
 
+    // calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
 
+    // update the picking ray with the camera and mouse position
     raycaster.setFromCamera( mouse, camera );
 
+    //calulate objects intersecting the picking ray
     var intersects = raycaster.intersectObjects(scene.children, true); 
+    
     for( var i = 0; i < intersects.length; i++ ) {
         var intersection = intersects[ i ],
-        obj = intersection.object;
-        bClone = obj;
-        //console.log("Intersected object", obj);
+        obj = intersection.object; // Store the intersected mesh in the obj var
+        coloredMesh = obj; // Store the obj var in the colored mesh var
       }
-
     }
 
-    var bClone = chest;
+    var coloredMesh = chest; //Variable to control the color of the selected mesh
 
     var n = 0
     var gui = new dat.GUI();
@@ -304,8 +308,9 @@ function init() {
     gui.add(controls, 'x', -400, 400).onChange(controls.redraw);
     gui.add(controls, 'y', -400, 400).onChange(controls.redraw);
     gui.add(controls, 'duplicates').onChange(controls.redraw);
+    //gui color picker to control the color of the selected mesh
     gui.addColor(conf, 'color').onChange( function(colorValue) {
-        bClone.material.color.set(colorValue);
+        coloredMesh.material.color.set(colorValue);
     });
 
     function animate(s,l,r,la,ra) {
