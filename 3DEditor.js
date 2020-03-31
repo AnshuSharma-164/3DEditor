@@ -315,12 +315,25 @@ function init() {
 
     // set up the controls for the primitives gui
     var controls2 = new function () {
+    	this.group = function () {
+
+    	}
         //cube spawn function
         this.cube = function () {
+        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
+        	var boxGeometry = new THREE.BoxGeometry(4,4,4);
+    		var box = new THREE.Mesh(boxGeometry, colour);
+    		scene.add(box);
+    		box.position.set(0,50,0);
         }
 
         //sphere spawn function
         this.sphere = function () {
+        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
+        	var sphereGeometry = new THREE.SphereGeometry(2,16,16);
+    		var sphere = new THREE.Mesh(sphereGeometry, colour);
+    		scene.add(sphere);
+    		sphere.position.set(50,0,0);
         }
 
         //cone spawn function
@@ -328,14 +341,15 @@ function init() {
         }
 
         this.redraw = function () {
+        	
         };
     };
 
     // primitive gui
     var gui2 = new dat.GUI();
-    gui2.add(controls2, 'cube').onChange(controls.redraw);
     gui2.add(controls2, 'sphere').onChange(controls.redraw);
     gui2.add(controls2, 'cone').onChange(controls.redraw);
+    gui2.add(controls2, 'cube').onChange(controls.redraw);
 
 
     function animate(s,l,r,la,ra) {
