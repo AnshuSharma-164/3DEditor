@@ -281,13 +281,17 @@ function init() {
     for( var i = 0; i < intersects.length; i++ ) {
         var intersection = intersects[ i ],
         obj = intersection.object;
-        console.log("Intersected object", obj);
+        bClone = obj;
+        //console.log("Intersected object", obj);
       }
 
     }
 
+    var bClone = chest;
+
     var n = 0
     var gui = new dat.GUI();
+    var conf = {color : '#ffae23'};
     gui.add(controls, 'focalPoint').onChange(controls.redraw);
     gui.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
     gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
@@ -300,6 +304,9 @@ function init() {
     gui.add(controls, 'x', -400, 400).onChange(controls.redraw);
     gui.add(controls, 'y', -400, 400).onChange(controls.redraw);
     gui.add(controls, 'duplicates').onChange(controls.redraw);
+    gui.addColor(conf, 'color').onChange( function(colorValue) {
+        bClone.material.color.set(colorValue);
+    });
 
     function animate(s,l,r,la,ra) {
         s.position.y = stringGroup.position.y + 0.05*Math.sin((n*0.01))*animation;
