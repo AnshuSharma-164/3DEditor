@@ -263,6 +263,29 @@ function init() {
         };
     };
 
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    
+    window.addEventListener('click', onDocumentMouseDown, false);
+
+    function onDocumentMouseDown( event ) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+
+    raycaster.setFromCamera( mouse, camera );
+
+    var intersects = raycaster.intersectObjects(scene.children, true); 
+    for( var i = 0; i < intersects.length; i++ ) {
+        var intersection = intersects[ i ],
+        obj = intersection.object;
+        console.log("Intersected object", obj);
+      }
+
+    }
+
     var n = 0
     var gui = new dat.GUI();
     gui.add(controls, 'focalPoint').onChange(controls.redraw);
