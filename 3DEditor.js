@@ -313,6 +313,31 @@ function init() {
         coloredMesh.material.color.set(colorValue);
     });
 
+    // set up the controls for the primitives gui
+    var controls2 = new function () {
+        //cube spawn function
+        this.cube = function () {
+        }
+
+        //sphere spawn function
+        this.sphere = function () {
+        }
+
+        //cone spawn function
+        this.cone = function () {
+        }
+
+        this.redraw = function () {
+        };
+    };
+
+    // primitive gui
+    var gui2 = new dat.GUI();
+    gui2.add(controls2, 'cube').onChange(controls.redraw);
+    gui2.add(controls2, 'sphere').onChange(controls.redraw);
+    gui2.add(controls2, 'cone').onChange(controls.redraw);
+
+
     function animate(s,l,r,la,ra) {
         s.position.y = stringGroup.position.y + 0.05*Math.sin((n*0.01))*animation;
         l.rotation.z = (Math.sin(stringGroup.position.y)*Math.PI*0.2) - Math.PI*0.2
