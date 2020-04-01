@@ -41,7 +41,7 @@ function init() {
     // position chest on the center
     chest.position.set(0, 0, 0);
     // add the chest to the torso group
-    torso.add(chest);
+    //torso.add(chest);
 
 
     //focal point
