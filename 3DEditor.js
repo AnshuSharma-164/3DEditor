@@ -47,12 +47,8 @@ function init() {
     //focal point
     var pointGroup = new THREE.Group()
     scene.add(pointGroup);
-    var sphereGeometry_point = new THREE.SphereGeometry(1,16,16);
     var faceMaterial_clearblack = new THREE.MeshBasicMaterial({color:'black'});
     faceMaterial_clearblack.transparent = true;
-    point = new THREE.Mesh(sphereGeometry_point, faceMaterial_clearblack);
-    pointGroup.add(point);
-    point.position.set(0,0,0);
 
 
     // need a camera to look at things
@@ -71,16 +67,15 @@ function init() {
     renderer.render(scene, camera);
 
 
-    
+    var coloredMesh = chest; //Variable to control the color of the selected mesh
     // setup the control gui
     var controls = new function () {
-        this.focalPoint = true
         this.animation = 1
         this.yRotation = 0
         this.xRotation = 0
-        this.zPosition = 300
-        this.yPosition = 0
-        this.xPosition = 0
+        this.zPosition = coloredMesh.position.z //the default position of zPosition is now the one of the clicked object
+        this.yPosition = coloredMesh.position.y //the default position of yPosition is now the one of the clicked object
+        this.xPosition = coloredMesh.position.x //the default position of yPosition is now the one of the clicked object
         this.redraw = function () {
         };
     };
@@ -110,19 +105,22 @@ function init() {
         var intersection = intersects[ i ],
         obj = intersection.object; // Store the intersected mesh in the obj var
         coloredMesh = obj; // Store the obj var in the colored mesh var
+
+        //Changing the controls.(z,y,x)Position so the clicked object doesn't respawn at the previous object position
+        controls.zPosition = coloredMesh.position.z
+        controls.yPosition = coloredMesh.position.y
+        controls.xPosition = coloredMesh.position.x
       }
     }
 
-    var coloredMesh = chest; //Variable to control the color of the selected mesh
 
     var n = 0
     var gui = new dat.GUI();
     var conf = {color : '#ffae23'};
-    gui.add(controls, 'focalPoint').onChange(controls.redraw);
     gui.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
     gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
-    gui.add(controls, 'zPosition', 100, 500).onChange(controls.redraw);
+    gui.add(controls, 'zPosition', -50, 250).onChange(controls.redraw);
     gui.add(controls, 'yPosition', -100, 100).onChange(controls.redraw);
     gui.add(controls, 'xPosition', -100, 100).onChange(controls.redraw);
     //gui color picker to control the color of the selected mesh
@@ -182,9 +180,12 @@ function init() {
 
         yRotation = controls.yRotation
         xRotation = controls.xRotation
-        zPosition = controls.zPosition
-        yPosition = controls.yPosition
-        xPosition = controls.xPosition
+
+        //Changes the clicked object z, y and x position.
+        coloredMesh.position.z = controls.zPosition
+        coloredMesh.position.y = controls.yPosition
+        coloredMesh.position.x = controls.xPosition
+
         animation = controls.animation
         xHead = controls.xHead
         yHead = controls.yHead
@@ -211,9 +212,9 @@ function init() {
 
         pointGroup.rotation.x = 2*Math.PI*Math.sin(yRotation);
         pointGroup.rotation.y = 2*Math.PI*Math.sin(xRotation);
-        camera.position.z = zPosition;
-        pointGroup.position.x = xPosition;
-        pointGroup.position.y = yPosition;
+        //camera.position.z = zPosition;
+        //pointGroup.position.x = xPosition;
+        //pointGroup.position.y = yPosition;
 
         document.body
     
