@@ -70,6 +70,9 @@ function init() {
     var coloredMesh = chest; //Variable to control the color of the selected mesh
     // setup the control gui
     var controls = new function () {
+        this.xScaling = 1 //Default x scaling parameter
+        this.yScaling = 1 //Default y scaling parameter
+        this.zScaling = 1 //Default z scaling parameter
         this.animation = 1
         this.yRotation = 0
         this.xRotation = 0
@@ -110,6 +113,11 @@ function init() {
         controls.zPosition = coloredMesh.position.z
         controls.yPosition = coloredMesh.position.y
         controls.xPosition = coloredMesh.position.x
+
+        //Reset the scaling parameters so the clicked object doesn't get the previous object scaling
+        controls.xScaling = 1;
+        controls.yScaling = 1;
+        controls.zScaling = 1;
       }
     }
 
@@ -118,6 +126,9 @@ function init() {
     var gui = new dat.GUI();
     var conf = {color : '#ffae23'};
     gui.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
+    gui.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
+    gui.add(controls, 'yScaling', 0.01, 5).onChange(controls.redraw);
+    gui.add(controls, 'zScaling', 0.01, 5).onChange(controls.redraw);
     gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'zPosition', -50, 250).onChange(controls.redraw);
@@ -145,7 +156,7 @@ function init() {
         //sphere spawn function
         this.sphere = function () {
         	var colour = new THREE.MeshBasicMaterial({color: 'black'});
-        	var sphereGeometry = new THREE.SphereGeometry(2,16,16);
+        	var sphereGeometry = new THREE.SphereGeometry(3,16,16);
     		var sphere = new THREE.Mesh(sphereGeometry, colour);
     		scene.add(sphere);
     		sphere.position.set(50,0,0);
@@ -181,10 +192,15 @@ function init() {
         yRotation = controls.yRotation
         xRotation = controls.xRotation
 
-        //Changes the clicked object z, y and x position.
+        //Changes the selected object z, y and x position.
         coloredMesh.position.z = controls.zPosition
         coloredMesh.position.y = controls.yPosition
         coloredMesh.position.x = controls.xPosition
+
+        //Changes the selected object scaling parameters.
+        coloredMesh.scale.x = controls.xScaling
+        coloredMesh.scale.y = controls.yScaling
+        coloredMesh.scale.z = controls.zScaling
 
         animation = controls.animation
         xHead = controls.xHead
