@@ -39,7 +39,7 @@ function init() {
     var cylinderGeometry = new THREE.CylinderGeometry(10, 15, 26, 32);
     var chest = new THREE.Mesh(cylinderGeometry, faceMaterial_pink);
     // position chest on the center
-    chest.position.set(0, 0, 0);
+    chest.position.set(0, 0, 230);
     // add the chest to the torso group
     //torso.add(chest);
 
@@ -115,9 +115,10 @@ function init() {
         controls.xPosition = coloredMesh.position.x
 
         //Reset the scaling parameters so the clicked object doesn't get the previous object scaling
-        controls.xScaling = 1;
-        controls.yScaling = 1;
-        controls.zScaling = 1;
+        //console.log(coloredMesh.scale.x);
+        controls.xScaling = coloredMesh.scale.x;
+        controls.yScaling = coloredMesh.scale.y;
+        controls.zScaling = coloredMesh.scale.z;
       }
     }
 
@@ -132,8 +133,8 @@ function init() {
     gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'zPosition', -50, 250).onChange(controls.redraw);
-    gui.add(controls, 'yPosition', -100, 100).onChange(controls.redraw);
-    gui.add(controls, 'xPosition', -100, 100).onChange(controls.redraw);
+    gui.add(controls, 'yPosition', -30, 30).onChange(controls.redraw);
+    gui.add(controls, 'xPosition', -50, 50).onChange(controls.redraw);
     //gui color picker to control the color of the selected mesh
     gui.addColor(conf, 'color').onChange( function(colorValue) {
         coloredMesh.material.color.set(colorValue);
@@ -150,16 +151,16 @@ function init() {
         	var boxGeometry = new THREE.BoxGeometry(4,4,4);
     		var box = new THREE.Mesh(boxGeometry, colour);
     		scene.add(box);
-    		box.position.set(0,50,0);
+    		box.position.set(0,20,230);
         }
 
         //sphere spawn function
         this.sphere = function () {
         	var colour = new THREE.MeshBasicMaterial({color: 'black'});
-        	var sphereGeometry = new THREE.SphereGeometry(3,16,16);
+        	var sphereGeometry = new THREE.SphereGeometry(0.75,16,16);
     		var sphere = new THREE.Mesh(sphereGeometry, colour);
     		scene.add(sphere);
-    		sphere.position.set(50,0,0);
+    		sphere.position.set(5,0,230);
         }
 
         //cone spawn function
