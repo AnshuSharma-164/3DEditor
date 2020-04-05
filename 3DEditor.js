@@ -74,8 +74,11 @@ function init() {
         this.yScaling = 1 //Default y scaling parameter
         this.zScaling = 1 //Default z scaling parameter
         this.animation = 1
-        this.yRotation = 0
-        this.xRotation = 0
+        this.xRotation = 0 //Default camera x rotation parameter 
+        this.yRotation = 0 //Default camera y rotation parameter
+        this.oxRotation = 0 //Default object x rotation parameter
+        this.oyRotation = 0 //Default object y rotation parameter
+        this.ozRotation = 0 //Default object z rotation parameter
         this.zPosition = coloredMesh.position.z //the default position of zPosition is now the one of the clicked object
         this.yPosition = coloredMesh.position.y //the default position of yPosition is now the one of the clicked object
         this.xPosition = coloredMesh.position.x //the default position of yPosition is now the one of the clicked object
@@ -130,8 +133,11 @@ function init() {
     gui.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
     gui.add(controls, 'yScaling', 0.01, 5).onChange(controls.redraw);
     gui.add(controls, 'zScaling', 0.01, 5).onChange(controls.redraw);
-    gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     gui.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
+    gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
+    gui.add(controls, 'oxRotation', 0, Math.PI*2).onChange(controls.redraw); // Object x rotation gui
+    gui.add(controls, 'oyRotation', 0, Math.PI*2).onChange(controls.redraw); // Object y rotation gui
+    gui.add(controls, 'ozRotation', 0, Math.PI*2).onChange(controls.redraw); // Object z rotation gui
     gui.add(controls, 'zPosition', -50, 250).onChange(controls.redraw);
     gui.add(controls, 'yPosition', -30, 30).onChange(controls.redraw);
     gui.add(controls, 'xPosition', -50, 50).onChange(controls.redraw);
@@ -202,6 +208,11 @@ function init() {
         coloredMesh.scale.x = controls.xScaling
         coloredMesh.scale.y = controls.yScaling
         coloredMesh.scale.z = controls.zScaling
+
+        //Changes the selected object rotation parameters.
+        coloredMesh.rotation.x = controls.oxRotation
+        coloredMesh.rotation.y = controls.oyRotation
+        coloredMesh.rotation.z = controls.ozRotation
 
         animation = controls.animation
         xHead = controls.xHead
