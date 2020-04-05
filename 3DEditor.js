@@ -157,7 +157,7 @@ function init() {
         	var boxGeometry = new THREE.BoxGeometry(4,4,4);
     		var box = new THREE.Mesh(boxGeometry, colour);
     		scene.add(box);
-    		box.position.set(0,20,230);
+    		box.position.set(0,10,230);
         }
 
         //sphere spawn function
@@ -178,7 +178,16 @@ function init() {
             cylinder.position.set(-5,0,230);
         }
 
-        
+        //cone spawn function
+        this.cone = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var coneGeometry = new THREE.ConeBufferGeometry(1,5,16);
+            var cone = new THREE.Mesh(coneGeometry, colour);
+            scene.add(cone);
+            cone.position.set(0,-20,230);
+        }
+
+
 
         this.redraw = function () {
         	
@@ -190,6 +199,7 @@ function init() {
     gui2.add(controls2, 'sphere').onChange(controls.redraw);
     gui2.add(controls2, 'cylinder').onChange(controls.redraw);
     gui2.add(controls2, 'cube').onChange(controls.redraw);
+    gui2.add(controls2, 'cone').onChange(controls.redraw);
 
 
     render();
