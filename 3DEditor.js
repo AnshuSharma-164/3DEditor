@@ -112,7 +112,7 @@ function init() {
 
         //Octahedron spawn function
         this.tetrahedron = function () {
-            var colour = new THREE.MeshBasictMaterial({color: 'black'});
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
             var octaGeometry = new THREE.TetrahedronBufferGeometry(1, 1);
             var tetra = new THREE.Mesh(octaGeometry, colour);
             scene.add(tetra);
@@ -180,10 +180,14 @@ function init() {
         controls.xPosition = coloredMesh.position.x
 
         //Reset the scaling parameters so the clicked object doesn't get the previous object scaling
-        //console.log(coloredMesh.scale.x);
         controls.xScaling = coloredMesh.scale.x;
         controls.yScaling = coloredMesh.scale.y;
         controls.zScaling = coloredMesh.scale.z;
+        
+        //Reset the rotation parameters so the clicked object doesn't get the previous object rotations
+        controls.oxRotation = coloredMesh.rotation.x;
+        controls.oyRotation = coloredMesh.rotation.y;
+        controls.ozRotation = coloredMesh.rotation.z;
       }
     }
 
