@@ -138,7 +138,7 @@ function init() {
     gui.add(controls, 'oxRotation', 0, Math.PI*2).onChange(controls.redraw); // Object x rotation gui
     gui.add(controls, 'oyRotation', 0, Math.PI*2).onChange(controls.redraw); // Object y rotation gui
     gui.add(controls, 'ozRotation', 0, Math.PI*2).onChange(controls.redraw); // Object z rotation gui
-    gui.add(controls, 'zPosition', -50, 250).onChange(controls.redraw);
+    gui.add(controls, 'zPosition', -50, 285).onChange(controls.redraw);
     gui.add(controls, 'yPosition', -30, 30).onChange(controls.redraw);
     gui.add(controls, 'xPosition', -50, 50).onChange(controls.redraw);
     //gui color picker to control the color of the selected mesh
@@ -169,9 +169,16 @@ function init() {
     		sphere.position.set(5,0,230);
         }
 
-        //cone spawn function
+        //cylinder spawn function
         this.cylinder = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var cylinderGeometry = new THREE.CylinderBufferGeometry(1,1,5,16);
+            var cylinder = new THREE.Mesh(cylinderGeometry, colour);
+            scene.add(cylinder);
+            cylinder.position.set(-5,0,230);
         }
+
+        
 
         this.redraw = function () {
         	
