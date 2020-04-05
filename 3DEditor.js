@@ -119,6 +119,19 @@ function init() {
             octa.position.set(0,-10,230);
         }
 
+        //Torus spawn function
+        this.torus = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var torusGeometry = new THREE.TorusBufferGeometry(
+                1, 0.5,
+                16, 48);
+            var torus = new THREE.Mesh(torusGeometry, colour);
+            scene.add(torus);
+            torus.position.set(5,10,230);
+        }
+
+        
+
         this.xScaling = 1 //Default x scaling parameter
         this.yScaling = 1 //Default y scaling parameter
         this.zScaling = 1 //Default z scaling parameter
@@ -188,6 +201,7 @@ function init() {
     folder1.add(controls, 'cube').onChange(controls.redraw);
     folder1.add(controls, 'cone').onChange(controls.redraw);
     folder1.add(controls, 'octahedron').onChange(controls.redraw);
+    folder1.add(controls, 'torus').onChange(controls.redraw);
 
     //Object parameters gui elements (Folder 2)
     folder2.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
