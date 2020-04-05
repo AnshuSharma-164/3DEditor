@@ -70,6 +70,55 @@ function init() {
     var coloredMesh = chest; //Variable to control the color of the selected mesh
     // setup the control gui
     var controls = new function () {
+
+        this.group = function () {
+
+    	}
+        //cube spawn function
+        this.cube = function () {
+        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
+        	var boxGeometry = new THREE.BoxGeometry(4,4,4);
+    		var box = new THREE.Mesh(boxGeometry, colour);
+    		scene.add(box);
+    		box.position.set(0,10,230);
+        }
+
+        //sphere spawn function
+        this.sphere = function () {
+        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
+        	var sphereGeometry = new THREE.SphereGeometry(0.75,16,16);
+    		var sphere = new THREE.Mesh(sphereGeometry, colour);
+    		scene.add(sphere);
+    		sphere.position.set(5,0,230);
+        }
+
+        //cylinder spawn function
+        this.cylinder = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var cylinderGeometry = new THREE.CylinderBufferGeometry(1,1,5,16);
+            var cylinder = new THREE.Mesh(cylinderGeometry, colour);
+            scene.add(cylinder);
+            cylinder.position.set(-5,0,230);
+        }
+
+        //cone spawn function
+        this.cone = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var coneGeometry = new THREE.ConeBufferGeometry(1,5,16);
+            var cone = new THREE.Mesh(coneGeometry, colour);
+            scene.add(cone);
+            cone.position.set(0,-20,230);
+        }
+
+        //Octahedron spawn function
+        this.octahedron = function () {
+            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+            var octaGeometry = new THREE.TetrahedronBufferGeometry(1, 1);
+            var octa = new THREE.Mesh(octaGeometry, colour);
+            scene.add(octa);
+            octa.position.set(0,-10,230);
+        }
+
         this.xScaling = 1 //Default x scaling parameter
         this.yScaling = 1 //Default y scaling parameter
         this.zScaling = 1 //Default z scaling parameter
@@ -129,78 +178,36 @@ function init() {
     var n = 0
     var gui = new dat.GUI();
     var conf = {color : '#ffae23'};
-    gui.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
-    gui.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
-    gui.add(controls, 'yScaling', 0.01, 5).onChange(controls.redraw);
-    gui.add(controls, 'zScaling', 0.01, 5).onChange(controls.redraw);
-    gui.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
-    gui.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
-    gui.add(controls, 'oxRotation', 0, Math.PI*2).onChange(controls.redraw); // Object x rotation gui
-    gui.add(controls, 'oyRotation', 0, Math.PI*2).onChange(controls.redraw); // Object y rotation gui
-    gui.add(controls, 'ozRotation', 0, Math.PI*2).onChange(controls.redraw); // Object z rotation gui
-    gui.add(controls, 'zPosition', -50, 285).onChange(controls.redraw);
-    gui.add(controls, 'yPosition', -30, 30).onChange(controls.redraw);
-    gui.add(controls, 'xPosition', -50, 50).onChange(controls.redraw);
+    var folder1 = gui.addFolder('Object Selection'); // Gui Folder for object selection
+    var folder2 = gui.addFolder('Object Parameters'); // Gui Folder for object parameters
+    var folder3 = gui.addFolder( 'Camera Controls ' ); // Gui Folder for camera controls
+
+    //Object selection gui elements (Folder 1)
+    folder1.add(controls, 'sphere').onChange(controls.redraw);
+    folder1.add(controls, 'cylinder').onChange(controls.redraw);
+    folder1.add(controls, 'cube').onChange(controls.redraw);
+    folder1.add(controls, 'cone').onChange(controls.redraw);
+    folder1.add(controls, 'octahedron').onChange(controls.redraw);
+
+    //Object parameters gui elements (Folder 2)
+    folder2.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
+    folder2.add(controls, 'yScaling', 0.01, 5).onChange(controls.redraw);
+    folder2.add(controls, 'zScaling', 0.01, 5).onChange(controls.redraw);
+    folder2.add(controls, 'oxRotation', 0, Math.PI*2).onChange(controls.redraw); // Object x rotation gui
+    folder2.add(controls, 'oyRotation', 0, Math.PI*2).onChange(controls.redraw); // Object y rotation gui
+    folder2.add(controls, 'ozRotation', 0, Math.PI*2).onChange(controls.redraw); // Object z rotation gui
+    folder2.add(controls, 'zPosition', -50, 285).onChange(controls.redraw);
+    folder2.add(controls, 'yPosition', -30, 30).onChange(controls.redraw);
+    folder2.add(controls, 'xPosition', -50, 50).onChange(controls.redraw);
     //gui color picker to control the color of the selected mesh
-    gui.addColor(conf, 'color').onChange( function(colorValue) {
+    folder2.addColor(conf, 'color').onChange( function(colorValue) {
         coloredMesh.material.color.set(colorValue);
     });
 
-    // set up the controls for the primitives gui
-    var controls2 = new function () {
-    	this.group = function () {
-
-    	}
-        //cube spawn function
-        this.cube = function () {
-        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
-        	var boxGeometry = new THREE.BoxGeometry(4,4,4);
-    		var box = new THREE.Mesh(boxGeometry, colour);
-    		scene.add(box);
-    		box.position.set(0,10,230);
-        }
-
-        //sphere spawn function
-        this.sphere = function () {
-        	var colour = new THREE.MeshBasicMaterial({color: 'black'});
-        	var sphereGeometry = new THREE.SphereGeometry(0.75,16,16);
-    		var sphere = new THREE.Mesh(sphereGeometry, colour);
-    		scene.add(sphere);
-    		sphere.position.set(5,0,230);
-        }
-
-        //cylinder spawn function
-        this.cylinder = function () {
-            var colour = new THREE.MeshBasicMaterial({color: 'black'});
-            var cylinderGeometry = new THREE.CylinderBufferGeometry(1,1,5,16);
-            var cylinder = new THREE.Mesh(cylinderGeometry, colour);
-            scene.add(cylinder);
-            cylinder.position.set(-5,0,230);
-        }
-
-        //cone spawn function
-        this.cone = function () {
-            var colour = new THREE.MeshBasicMaterial({color: 'black'});
-            var coneGeometry = new THREE.ConeBufferGeometry(1,5,16);
-            var cone = new THREE.Mesh(coneGeometry, colour);
-            scene.add(cone);
-            cone.position.set(0,-20,230);
-        }
-
-
-
-        this.redraw = function () {
-        	
-        };
-    };
-
-    // primitive gui
-    var gui2 = new dat.GUI();
-    gui2.add(controls2, 'sphere').onChange(controls.redraw);
-    gui2.add(controls2, 'cylinder').onChange(controls.redraw);
-    gui2.add(controls2, 'cube').onChange(controls.redraw);
-    gui2.add(controls2, 'cone').onChange(controls.redraw);
-
+    //Camera controls gui elements (Folder 3)
+    folder3.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
+    folder3.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
+    folder3.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
 
     render();
 
