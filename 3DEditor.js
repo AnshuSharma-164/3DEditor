@@ -111,12 +111,12 @@ function init() {
         }
 
         //Octahedron spawn function
-        this.octahedron = function () {
-            var colour = new THREE.MeshBasicMaterial({color: 'black'});
+        this.tetrahedron = function () {
+            var colour = new THREE.MeshBasictMaterial({color: 'black'});
             var octaGeometry = new THREE.TetrahedronBufferGeometry(1, 1);
-            var octa = new THREE.Mesh(octaGeometry, colour);
-            scene.add(octa);
-            octa.position.set(0,-10,230);
+            var tetra = new THREE.Mesh(octaGeometry, colour);
+            scene.add(tetra);
+            tetra.position.set(0,-10,230);
         }
 
         //Torus spawn function
@@ -130,7 +130,7 @@ function init() {
             torus.position.set(5,10,230);
         }
 
-        
+
 
         this.xScaling = 1 //Default x scaling parameter
         this.yScaling = 1 //Default y scaling parameter
@@ -200,7 +200,7 @@ function init() {
     folder1.add(controls, 'cylinder').onChange(controls.redraw);
     folder1.add(controls, 'cube').onChange(controls.redraw);
     folder1.add(controls, 'cone').onChange(controls.redraw);
-    folder1.add(controls, 'octahedron').onChange(controls.redraw);
+    folder1.add(controls, 'tetrahedron').onChange(controls.redraw);
     folder1.add(controls, 'torus').onChange(controls.redraw);
 
     //Object parameters gui elements (Folder 2)
