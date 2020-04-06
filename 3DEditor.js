@@ -130,6 +130,11 @@ function init() {
             torus.position.set(5,10,230);
         }
 
+        //Delete selected mesh
+        this.delete = function () {
+            scene.remove(coloredMesh);
+        }
+
 
 
         this.xScaling = 1 //Default x scaling parameter
@@ -205,6 +210,7 @@ function init() {
     folder1.add(controls, 'cone').onChange(controls.redraw);
     folder1.add(controls, 'tetrahedron').onChange(controls.redraw);
     folder1.add(controls, 'torus').onChange(controls.redraw);
+    folder1.add(controls, 'delete').onChange(controls.redraw);
 
     //Object parameters gui elements (Folder 2)
     folder2.add(controls, 'xScaling', 0.01, 5).onChange(controls.redraw);
