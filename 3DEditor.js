@@ -135,7 +135,6 @@ function init() {
         this.xScaling = 1 //Default x scaling parameter
         this.yScaling = 1 //Default y scaling parameter
         this.zScaling = 1 //Default z scaling parameter
-        this.animation = 1
         this.xRotation = 0 //Default camera x rotation parameter 
         this.yRotation = 0 //Default camera y rotation parameter
         this.oxRotation = 0 //Default object x rotation parameter
@@ -225,7 +224,10 @@ function init() {
     //Camera controls gui elements (Folder 3)
     folder3.add(controls, 'xRotation', 0, Math.PI*0.5).onChange(controls.redraw);
     folder3.add(controls, 'yRotation', 0, Math.PI*0.5).onChange(controls.redraw);
-    folder3.add(controls, 'animation',0,1).step(1).onChange(controls.redraw);
+    //gui color picker to control the background color
+    folder3.addColor(conf, 'color').onChange( function(colorValue) {
+        renderer.setClearColor(colorValue);
+    });
 
     render();
 
