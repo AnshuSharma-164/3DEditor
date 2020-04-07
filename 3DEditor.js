@@ -201,7 +201,7 @@ function init() {
     var conf = {color : '#ffae23'};
     var folder1 = gui.addFolder('Object Selection'); // Gui Folder for object selection
     var folder2 = gui.addFolder('Object Parameters'); // Gui Folder for object parameters
-    var folder3 = gui.addFolder( 'Camera Controls ' ); // Gui Folder for camera controls
+    var folder3 = gui.addFolder( 'Scene Controls ' ); // Gui Folder for camera controls
 
     //Object selection gui elements (Folder 1)
     folder1.add(controls, 'sphere').onChange(controls.redraw);
